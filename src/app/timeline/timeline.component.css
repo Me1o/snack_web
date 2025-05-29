@@ -1,0 +1,10 @@
+#fullpage {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+}
+
+#fullpage > .section {
+  height: 100%;
+  scroll-snap-align: start;
+}

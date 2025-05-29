@@ -1,0 +1,27 @@
+#toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+#toolbar::before {
+  content: "";
+  display: block;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.26) 50%,
+    rgba(0, 0, 0, 1) 100%
+  );
+}
+
+#actions > * {
+  filter: drop-shadow(0px 0px 8px #000);
+  cursor: pointer;
+}

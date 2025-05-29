@@ -1,0 +1,52 @@
+<div
+  class="w-screen h-screen bg-gray-100 flex flex-col justify-end"
+  id="body"
+  [ngStyle]="{ 'background-image': 'url(' + post.imageUrl + ')' }"
+  *ngIf="post.imageUrl != '' && post.imageUrl != 'null'"
+>
+  <div class="relative p-4 pt-48" id="content">
+    <div class="mb-2 flex items-center gap-2 z-50">
+      @for (category of categories; track category; let index = $index) {
+      <p
+        class="bg-white p-0.5 px-2 rounded-lg text-black font-light text-sm z-50"
+      >
+        {{ category }}
+      </p>
+      }
+    </div>
+    <h1 class="text-white text-4xl z-50 relative font-bold mb-1">
+      {{ post.title }}
+    </h1>
+    <p class="text-white text-xl z-50 relative">
+      {{ post.text }}
+    </p>
+  </div>
+</div>
+
+<div
+  class="w-screen h-screen bg-white flex flex-col justify-center"
+  id="body"
+  [ngStyle]="{ 'background-image': 'url(' + post.imageUrl + ')' }"
+  *ngIf="post.imageUrl == '' || post.imageUrl == 'null'"
+>
+  <div
+    class="relative p-4 px-6 h-full flex flex-col justify-center text-center items-center"
+    id="content_text"
+  >
+    <div class="mb-2 flex items-center gap-2">
+      @for (category of categories; track category; let index = $index) {
+      <p
+        class="bg-gray-100 p-0.5 px-2 rounded-lg text-gray-500 font-light text-sm"
+      >
+        {{ category }}
+      </p>
+      }
+    </div>
+    <h1 class="text-gray-600 text-4xl z-50 relative font-bold mb-1">
+      {{ post.title }}
+    </h1>
+    <p class="text-gray-400 text-xl z-50 relative">
+      {{ post.text }}
+    </p>
+  </div>
+</div>

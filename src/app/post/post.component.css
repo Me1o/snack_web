@@ -1,0 +1,26 @@
+#body {
+  background-position: center;
+  background-size: cover;
+}
+
+#content,
+#content_text {
+  direction: rtl;
+  font-family: "IBM Plex Sans Arabic", sans-serif;
+}
+
+#content::before {
+  content: "";
+  display: block;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.26) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}

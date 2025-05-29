@@ -1,0 +1,8 @@
+<div id="fullpage">
+  @for (post of posts; track post; let index = $index) {
+  <div class="section">
+    <p class="hidden" id="index">{{ index }}</p>
+    <app-post [post]="post"></app-post>
+  </div>
+  }
+</div>

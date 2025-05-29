@@ -53,7 +53,6 @@ export class PostComponent implements OnInit {
         default:
       }
       this.categories.push(cat);
-      console.log(this.categories);
     });
   }
 }

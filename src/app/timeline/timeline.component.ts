@@ -26,16 +26,13 @@ export class TimelineComponent implements OnInit {
 
     const main = document.querySelector('#fullpage');
     if (main)
-      main.addEventListener('scrollend', (event) => {
+      main.addEventListener('scroll', (event) => {
         const observer = new IntersectionObserver((entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting && entry.intersectionRatio == 1) {
               const index = parseInt(entry.target.children[0].innerHTML);
               const length = this.posts.length;
-              console.log(index);
-              console.log(length);
               if (length - index == 5 && index > this.position) {
-                console.log('loading');
                 this.position = index;
                 loadMore();
               }

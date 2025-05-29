@@ -11,6 +11,7 @@ import { throttle } from 'throttle-debounce';
 })
 export class TimelineComponent implements OnInit {
   private position = 1;
+  private scrollLogicInitiated = false;
   constructor(public dataService: DataService) {}
 
   get posts() {
@@ -20,36 +21,44 @@ export class TimelineComponent implements OnInit {
   get isPostsLoading() {
     return this.dataService.isLoadingPosts;
   }
-
+  scrollLogic() {
+    const main = document.querySelector('#fullpage');
+    if (main) {
+      const elements = document.querySelectorAll('.section');
+      if (elements.length == 0) {
+        return;
+      }
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && this.scrollLogicInitiated) {
+            const index = parseInt(entry.target.children[0].innerHTML);
+            const length = this.posts.length;
+            console.log('here goes ' + index + ' out of ' + length);
+            if (length - index == 5 && index > this.position) {
+              this.position = index;
+              loadMore();
+              this.scrollLogicInitiated = false;
+            }
+          }
+        });
+      });
+      elements.forEach((e) => observer.observe(e));
+      this.scrollLogicInitiated = true;
+    }
+    const loadMore = throttle(
+      1000,
+      () => {
+        this.dataService.getPostsNextPage();
+      },
+      { noLeading: false, noTrailing: false }
+    );
+  }
   ngOnInit() {
     this.loadPosts();
 
-    const main = document.querySelector('#fullpage');
-    if (main)
-      main.addEventListener('scroll', (event) => {
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting && entry.intersectionRatio == 1) {
-              const index = parseInt(entry.target.children[0].innerHTML);
-              const length = this.posts.length;
-              if (length - index == 5 && index > this.position) {
-                this.position = index;
-                loadMore();
-              }
-            }
-          });
-        });
-
-        const elements = document.querySelectorAll('.section');
-        elements.forEach((e) => observer.observe(e));
-        const loadMore = throttle(
-          1000,
-          () => {
-            this.dataService.getPostsNextPage();
-          },
-          { noLeading: false, noTrailing: false }
-        );
-      });
+    const intervalID = setInterval(() => {
+      if (!this.scrollLogicInitiated) this.scrollLogic();
+    }, 500);
   }
 
   loadPosts() {

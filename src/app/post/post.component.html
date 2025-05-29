@@ -1,5 +1,5 @@
 <div
-  class="w-screen h-screen bg-gray-100 flex flex-col justify-end"
+  class="w-full h-full bg-gray-100 flex flex-col justify-end"
   id="body"
   [ngStyle]="{ 'background-image': 'url(' + post.imageUrl + ')' }"
   *ngIf="post.imageUrl != '' && post.imageUrl != 'null'"
@@ -24,7 +24,7 @@
 </div>
 
 <div
-  class="w-screen h-screen bg-white flex flex-col justify-center"
+  class="w-full h-full bg-white flex flex-col justify-center"
   id="body"
   [ngStyle]="{ 'background-image': 'url(' + post.imageUrl + ')' }"
   *ngIf="post.imageUrl == '' || post.imageUrl == 'null'"

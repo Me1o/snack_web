@@ -8,3 +8,10 @@
   height: 100%;
   scroll-snap-align: start;
 }
+
+#start {
+}
+
+#start > #content {
+  direction: rtl;
+}

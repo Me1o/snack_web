@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { PostComponent } from './../post/post.component';
 import { DataService } from './../data.service';
 import { throttle } from 'throttle-debounce';
-
+import { LoaderComponent } from '../loader/loader.component';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-timeline',
-  imports: [PostComponent],
+  imports: [PostComponent, LoaderComponent, CommonModule],
   templateUrl: './timeline.component.html',
   styleUrl: './timeline.component.css',
 })

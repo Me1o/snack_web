@@ -1,8 +1,23 @@
 <div id="fullpage">
+  <div class="section flex items-center justify-center" id="start">
+    <p class="hidden" id="index">0</p>
+    <div id="content" class="text-center">
+      <h2 class="text-4xl text-gray-600 font-bold">اهلا 👋</h2>
+      <p class="text-lg text-gray-400">
+        سجل دخولك لتخصيص المحتوى او اسحب للاعلى لعرض المحتوى العام.
+      </p>
+    </div>
+  </div>
   @for (post of posts; track post; let index = $index) {
   <div class="section">
     <p class="hidden" id="index">{{ index }}</p>
     <app-post [post]="post"></app-post>
   </div>
   }
+  <div
+    class="absolute left-[50%] -translate-x-[50%] top-[25%]"
+    *ngIf="isPostsLoading"
+  >
+    <app-loader></app-loader>
+  </div>
 </div>

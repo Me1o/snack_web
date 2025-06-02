@@ -1,3 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap");
 @import "tailwindcss";
+
+.panel {
+  z-index: 99;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+.panel:before {
+  position: fixed;
+  content: "";
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: #000;
+  opacity: 0.3;
+  z-index: 9;
+}
+.panel > .content {
+  position: absolute !important;
+  bottom: 0;
+  width: 100%;
+  background-color: #fff;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  padding: 20px;
+  direction: rtl;
+  z-index: 10;
+}
+
+button:disabled {
+  opacity: 0.5;
+}

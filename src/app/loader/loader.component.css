@@ -29,3 +29,11 @@
     transform: rotate(360deg);
   }
 }
+
+.inBtn {
+  border: 4px solid rgba(244, 244, 244, 0.792);
+  border-left-color: transparent;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+}

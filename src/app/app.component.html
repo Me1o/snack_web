@@ -1,3 +1,20 @@
-<app-toolbar></app-toolbar>
+<app-toolbar
+  (loginClickedEvent)="loginClicked($event)"
+  (prefClickedEvent)="prefClicked($event)"
+></app-toolbar>
 
 <app-timeline></app-timeline>
+
+<div *ngIf="showAccount" class="panel">
+  <div class="content">
+    <app-account
+      (closeClickedEvent)="accountPanelCloseClicked($event)"
+    ></app-account>
+  </div>
+</div>
+
+<div *ngIf="showPref" class="panel">
+  <div class="content">
+    <app-prefs (closeClickedEvent)="prefPanelCloseClicked($event)"> </app-prefs>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<div
+  id="head"
+  class="pb-2 mb-4 border-b-2 border-solid border-gray-100 flex items-center gap-2"
+>
+  <img
+    src="close.svg"
+    class="w-6 cursor-pointer"
+    (click)="closeClickHandler()"
+  />
+  <p class="font-bold text-lg">تفضيلات المستخدم</p>
+</div>
+
+<div class="flex flex-col gap-2">
+  <div class="flex items-center gap-2 cursor-pointer" (click)="logout()">
+    <img src="logout.svg" class="w-6" />
+    <p class="text-md">تسجيل الخروج</p>
+    <app-loader *ngIf="isUserLoading" [inBtn]="true"></app-loader>
+  </div>
+</div>

@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, untracked } from '@angular/core';
 import { Post } from './post/posts.entity';
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../enviroments/enviroment';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +15,27 @@ export class DataService {
   public posts: Post[] = [];
   public isLoadingPosts = false;
   public postsQuery = { page: 1 };
+  //
+
+  //user properties
+  public isLoadingUser = false;
+  public userQuery = { email: '', password: '', name: '' };
+  public doesUserExist = false;
+
+  doesUserExistSubject = new BehaviorSubject(2);
+  currentDoesUserExistSubject = this.doesUserExistSubject.asObservable();
+
+  isUserLoggedIn = new BehaviorSubject({
+    isLoggedIn: this.token != '' ? true : false,
+    token: this.token,
+  });
+  isUserLoggedInSubject = this.isUserLoggedIn.asObservable();
+
+  authErrors = new BehaviorSubject({
+    isErrored: false,
+    message: '',
+  });
+  authErrorsSubject = this.isUserLoggedIn.asObservable();
   //
 
   getPosts() {
@@ -30,7 +52,92 @@ export class DataService {
     this.getPosts();
   }
 
+  validateEmailExistence() {
+    this.isLoadingUser = true;
+    this.http
+      .get(this.makeUrl('auth/validate_email/' + this.userQuery.email))
+      .subscribe((res: any) => {
+        this.doesUserExist = res;
+        this.doesUserExistSubject.next(this.doesUserExist ? 1 : 0);
+        this.isLoadingUser = false;
+      });
+  }
+
+  login() {
+    this.isLoadingUser = true;
+    this.http
+      .post(this.makeUrl('auth/login/'), {
+        email: this.userQuery.email,
+        password: this.userQuery.password,
+      })
+      .subscribe(
+        (res: any) => {
+          console.log(res);
+          if (res.token) {
+            localStorage.setItem('token', res.token);
+            this.isUserLoggedIn.next({ isLoggedIn: true, token: res.token });
+          }
+          this.isLoadingUser = false;
+        },
+        (error: any) => {
+          this.authErrors.next({
+            isErrored: true,
+            message: 'كلمة المرور غير صحيحة',
+          });
+          this.isLoadingUser = false;
+        }
+      );
+  }
+
+  register() {
+    this.isLoadingUser = true;
+    this.http
+      .post(this.makeUrl('auth/register/'), {
+        email: this.userQuery.email,
+        password: this.userQuery.password,
+        name: this.userQuery.name,
+      })
+      .subscribe(
+        (res: any) => {
+          console.log(res);
+          if (res.token) {
+            localStorage.setItem('token', res.token);
+            this.isUserLoggedIn.next({ isLoggedIn: true, token: res.token });
+          }
+          this.isLoadingUser = false;
+        },
+        (error: any) => {
+          this.authErrors.next({
+            isErrored: true,
+            message: 'بريد الكتروني غير صالح',
+          });
+          this.isLoadingUser = false;
+        }
+      );
+  }
+
   makeUrl(url: string) {
     return this.baseUrl + '/' + url;
+  }
+
+  logout() {
+    this.isLoadingUser = true;
+    localStorage.setItem('token', '');
+    setTimeout(() => {
+      this.isUserLoggedIn.next({ isLoggedIn: false, token: '' });
+      this.isLoadingUser = false;
+    }, 1000);
+  }
+
+  get token() {
+    return localStorage.getItem('token');
+  }
+
+  resetAuth() {
+    this.userQuery.email = '';
+    this.userQuery.name = '';
+    this.userQuery.password = '';
+    this.doesUserExist = false;
+    this.doesUserExistSubject.next(2);
   }
 }

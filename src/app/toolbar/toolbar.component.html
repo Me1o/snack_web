@@ -1,8 +1,20 @@
 <div id="toolbar" class="flex items-center justify-between p-2 pb-10 z-50 pt-4">
   <img src="bar.png" class="w-12 z-50" />
   <div class="z-50 flex items-center gap-2" id="actions">
-    <a class="z-50 bg-black p-1 px-4 rounded-lg font-bold text-white block">
+    <a
+      class="z-50 bg-black p-1 px-4 rounded-lg font-bold text-white block"
+      (click)="loginClickHandler()"
+      *ngIf="!isLoggedIn"
+    >
       تسجيل الدخول
+    </a>
+
+    <a
+      class="z-50 bg-black p-1 px-4 rounded-lg font-bold text-white block"
+      *ngIf="isLoggedIn"
+      (click)="prefClickHandler()"
+    >
+      التفضيلات
     </a>
   </div>
 </div>

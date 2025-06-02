@@ -1,0 +1,105 @@
+<div
+  id="head"
+  class="pb-2 mb-4 border-b-2 border-solid border-gray-100 flex items-center gap-2"
+>
+  <img
+    src="close.svg"
+    class="w-6 cursor-pointer"
+    (click)="closeClickHandler()"
+  />
+  <p class="font-bold text-lg" *ngIf="step == 1">التسجيل</p>
+  <p class="font-bold text-lg" *ngIf="step == 2 && isUserAvailable">
+    تسجيل الدخول
+  </p>
+  <p class="font-bold text-lg" *ngIf="step == 2 && !isUserAvailable">
+    تسجيل حساب جديد
+  </p>
+</div>
+
+<div id="stepOne" *ngIf="step == 1">
+  <h1 class="text-2xl font-bold">عنوان البريد الإلكتروني</h1>
+  <p class="text-red-600">{{ error }}</p>
+  <input
+    type="email"
+    name="email"
+    placeholder="example@server.com"
+    class="bg-gray-100 block mb-4 mt-2 w-full rounded-lg p-2 text-lg placeholder-gray-400"
+    [(ngModel)]="email"
+  />
+  <button
+    class="z-50 bg-black p-2 px-6 rounded-lg font-bold text-white text-center flex items-center gap-2 w-fit cursor-pointer"
+    (click)="validateUserExistence()"
+  >
+    التالي
+    <app-loader *ngIf="isUserLoading" [inBtn]="true"></app-loader>
+  </button>
+</div>
+
+<div id="stepTwo" *ngIf="step == 2 && isUserAvailable">
+  <h1 class="text-2xl font-bold">كلمة المرور ل {{ email }}</h1>
+  <p class="text-red-600">{{ error }}</p>
+  <input
+    type="password"
+    name="password"
+    class="bg-gray-100 block mb-4 mt-2 w-full rounded-lg p-2 text-lg placeholder-gray-400"
+    [(ngModel)]="password"
+  />
+  <button
+    class="z-50 bg-black p-2 px-6 rounded-lg font-bold text-white text-center flex items-center gap-2 w-fit cursor-pointer"
+    (click)="login()"
+  >
+    التالي
+    <app-loader *ngIf="isUserLoading" [inBtn]="true"></app-loader>
+  </button>
+</div>
+
+<div id="stepTwo" *ngIf="step == 2 && !isUserAvailable">
+  <p class="text-red-600">{{ error }}</p>
+  <h1 class="text-lg font-bold">اسم المستخدم</h1>
+  <input
+    type="text"
+    name="name"
+    class="bg-gray-100 block mb-4 mt-2 w-full rounded-lg p-2 text-lg placeholder-gray-400"
+    [(ngModel)]="name"
+  />
+  <p class="text-red-600" *ngIf="name != '' && name.length < 2">
+    الاسم يجب ان يحتوي علي حرفين او اكثر
+  </p>
+  <br />
+
+  <h1 class="text-lg font-bold">كلمة المرور</h1>
+  <input
+    type="password"
+    name="password"
+    class="bg-gray-100 block mb-4 mt-2 w-full rounded-lg p-2 text-lg placeholder-gray-400"
+    [(ngModel)]="password"
+  />
+  <p class="text-red-600" *ngIf="password != '' && password.length < 6">
+    كلمة المرور يجب ان تحتوى علي ٦ احرف/ارقام او اكثر
+  </p>
+  <br />
+
+  <h1 class="text-lg font-bold">تاكيد كلمة المرور</h1>
+  <input
+    type="password"
+    name="passwordConfirm"
+    class="bg-gray-100 block mb-4 mt-2 w-full rounded-lg p-2 text-lg placeholder-gray-400"
+    [(ngModel)]="passwordConfirm"
+  />
+  <p
+    class="text-red-600"
+    *ngIf="passwordConfirm != '' && passwordConfirm != password"
+  >
+    تاكيد كلمة المرور يجب ان يطابق كلمة المرور
+  </p>
+  <br />
+
+  <button
+    class="z-50 bg-black p-2 px-6 rounded-lg font-bold text-white text-center flex items-center gap-2 w-fit cursor-pointer"
+    (click)="register()"
+    [disabled]="!isRegisterValid"
+  >
+    تسجيل حساب جديد
+    <app-loader *ngIf="isUserLoading" [inBtn]="true"></app-loader>
+  </button>
+</div>

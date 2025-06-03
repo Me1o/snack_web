@@ -25,6 +25,9 @@ export class PostComponent implements OnInit {
       case 'aljazeera':
         this.source = ' الجزيرة';
         break;
+      case 'france24':
+        this.source = ' فرانس ٢٤';
+        break;
     }
   }
 

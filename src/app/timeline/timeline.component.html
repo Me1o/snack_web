@@ -21,3 +21,11 @@
     <app-loader></app-loader>
   </div>
 </div>
+
+<div
+  *ngIf="IsDone"
+  class="fixed bottom-[5%] left-[50%] -translate-x-[50%] cursor-pointer bg-white rounded-xl p-1 px-4 shadow flex items-center gap-2 z-50 transition-all hover:opacity-50"
+>
+  <p class="text-xm text-black">تحديث</p>
+  <img src="refresh.svg" class="w-4" />
+</div>

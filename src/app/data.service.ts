@@ -15,6 +15,7 @@ export class DataService {
   public posts: Post[] = [];
   public isLoadingPosts = false;
   public postsQuery = { page: 1 };
+  public totalPosts = 10;
   //
 
   //user properties
@@ -65,6 +66,7 @@ export class DataService {
       )
       .subscribe((res: any) => {
         this.posts.push(...res.data);
+        this.totalPosts = res.total;
         this.isLoadingPosts = false;
       });
   }

@@ -22,6 +22,16 @@ export class TimelineComponent implements OnInit {
   get isPostsLoading() {
     return this.dataService.isLoadingPosts;
   }
+
+  get total(): number {
+    return this.dataService.totalPosts;
+  }
+
+  get IsDone(): boolean {
+    const length = this.posts.length;
+    return length == this.total;
+  }
+
   scrollLogic() {
     const main = document.querySelector('#fullpage');
     if (main) {
@@ -35,7 +45,7 @@ export class TimelineComponent implements OnInit {
             const index = parseInt(entry.target.children[0].innerHTML);
             const length = this.posts.length;
             console.log('here goes ' + index + ' out of ' + length);
-            if (length - index == 5 && index > this.position) {
+            if (length - index < 3 && index > this.position && !this.IsDone) {
               this.position = index;
               loadMore();
               this.scrollLogicInitiated = false;

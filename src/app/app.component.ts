@@ -6,6 +6,7 @@ import { TimelineComponent } from './timeline/timeline.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { AccountComponent } from './account/account.component';
 import { PrefsComponent } from './prefs/prefs.component';
+import { NavigationEnd, Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   imports: [
@@ -22,6 +23,17 @@ import { PrefsComponent } from './prefs/prefs.component';
 })
 export class AppComponent {
   title = 'snackWeb';
+
+  constructor(public router: Router) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        gtag('config', 'xx-xxxxx-xx', {
+          page_path: event.urlAfterRedirects,
+        });
+      }
+    });
+  }
+
   public showAccount = false;
   public showPref = false;
 
@@ -40,4 +52,7 @@ export class AppComponent {
   public prefPanelCloseClicked(event: any) {
     this.showPref = false;
   }
+}
+function gtag(arg0: string, arg1: string, arg2: { page_path: string }) {
+  throw new Error('Function not implemented.');
 }

@@ -57,7 +57,12 @@ export class DataService {
   getPosts() {
     this.isLoadingPosts = true;
     this.http
-      .get(this.makeUrl('posts/' + this.postsQuery.page))
+      .get(
+        this.makeUrl(
+          (this.token != '' ? 'posts/' : 'posts/explore/') +
+            this.postsQuery.page
+        )
+      )
       .subscribe((res: any) => {
         this.posts.push(...res.data);
         this.isLoadingPosts = false;

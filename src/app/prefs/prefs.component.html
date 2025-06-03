@@ -11,69 +11,69 @@
 </div>
 
 <div class="flex flex-col gap-2">
-  <div>
+  <div class="border-b-2 border-solid border-gray-50 pb-4 mb-4 pt-4">
     <div class="flex items-center gap-2 cursor-pointer">
       <img src="news.svg" class="w-6" />
       <p class="font-bold text-md">تفضيلات الاخبار (اضغط للتعديل)</p>
       <app-loader *ngIf="isPrefsLoading" [inBtn]="true"></app-loader>
     </div>
-    <div class="flex items-center gap-2 mt-2 mb-2">
+    <div class="flex items-center gap-2 mt-2 mb-2 flex-wrap">
       <p
-        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer"
+        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer shrink-0"
         (click)="showPoliticsPrefs = true"
       >
         سياسة ({{ politicsCountries.length }})
       </p>
       <p
-        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer"
+        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer shrink-0"
         (click)="showSportsPrefs = true"
       >
         رياضة ({{ sportsCountries.length }})
       </p>
       <p
-        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer"
+        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer shrink-0"
         (click)="showCulturePrefs = true"
       >
         ثقافة ({{ cultureCountries.length }})
       </p>
       <p
-        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer"
+        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer shrink-0"
         (click)="showEconomicsPrefs = true"
       >
         اقتصاد ({{ economicsCountries.length }})
       </p>
       <p
-        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer"
+        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer shrink-0"
         (click)="showEntertainmentPrefs = true"
       >
         ترفيه ({{ entertainmentCountries.length }})
       </p>
       <p
-        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer"
+        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer shrink-0"
         (click)="showSciencePrefs = true"
       >
         علوم ({{ scienceCountries.length }})
       </p>
       <p
-        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer"
+        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer shrink-0"
         (click)="showBusinessPrefs = true"
       >
         أعمال ({{ businessCountries.length }})
       </p>
       <p
-        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer"
+        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer shrink-0"
         (click)="showTechnologyPrefs = true"
       >
         تكنولوجيا ({{ technologyCountries.length }})
       </p>
       <p
-        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer"
+        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer shrink-0"
         (click)="showLegalPrefs = true"
       >
         قانون ({{ legalCountries.length }})
       </p>
       <p
-        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer"
+        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer shrink-0"
         (click)="showGeneralPrefs = true"
       >
         عام ({{ generalCountries.length }})

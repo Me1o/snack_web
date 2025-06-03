@@ -138,8 +138,9 @@ export class DataService {
       .post(this.makeUrl('preferences/update/'), this.prefsQuery)
       .subscribe(
         (res: any) => {
-          console.log(res);
           this.isLoadingPrefs = false;
+          this.postsQuery.page = 1;
+          this.getPosts();
         },
         (error: any) => {
           this.isLoadingPrefs = false;

@@ -11,8 +11,21 @@ import { CommonModule } from '@angular/common';
 export class PostComponent implements OnInit {
   @Input() post: Post = new Post();
   public categories: Array<string> = [];
+  public source = '';
   ngOnInit() {
     this.getCategory();
+    this.getSource();
+  }
+
+  getSource() {
+    switch (this.post.source) {
+      case 'aawsat':
+        this.source = 'الشرق الأوسط';
+        break;
+      case 'aljazeera':
+        this.source = ' الجزيرة';
+        break;
+    }
   }
 
   getCategory() {

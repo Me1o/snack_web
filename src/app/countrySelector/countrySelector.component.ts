@@ -31,10 +31,11 @@ export class CountrySelectorComponent implements OnInit {
 
   ngOnInit() {
     for (const key in this.countryData) {
-      this.countryList.push({
-        name: key,
-        code: (this.countryData as any)[key] as string,
-      });
+      if (key != 'default')
+        this.countryList.push({
+          name: key,
+          code: (this.countryData as any)[key] as string,
+        });
     }
 
     //pre selected countries

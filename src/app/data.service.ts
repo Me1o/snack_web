@@ -38,6 +38,22 @@ export class DataService {
   authErrorsSubject = this.isUserLoggedIn.asObservable();
   //
 
+  //prefs properties
+  public isLoadingPrefs = false;
+  public prefsQuery = {
+    politics: [],
+    sports: [],
+    culture: [],
+    economics: [],
+    entertainment: [],
+    science: [],
+    business: [],
+    technology: [],
+    legal: [],
+    general: [],
+  };
+  //
+
   getPosts() {
     this.isLoadingPosts = true;
     this.http
@@ -114,6 +130,44 @@ export class DataService {
           this.isLoadingUser = false;
         }
       );
+  }
+
+  updatePreferences() {
+    this.isLoadingPrefs = true;
+    this.http
+      .post(this.makeUrl('preferences/update/'), this.prefsQuery)
+      .subscribe(
+        (res: any) => {
+          console.log(res);
+          this.isLoadingPrefs = false;
+        },
+        (error: any) => {
+          this.isLoadingPrefs = false;
+        }
+      );
+  }
+
+  getPreferences() {
+    this.isLoadingPrefs = true;
+    this.http.get(this.makeUrl('preferences/')).subscribe(
+      (res: any) => {
+        this.prefsQuery.politics = JSON.parse(res.politics);
+        this.prefsQuery.sports = JSON.parse(res.sports);
+        this.prefsQuery.economics = JSON.parse(res.economics);
+        this.prefsQuery.entertainment = JSON.parse(res.entertainment);
+        this.prefsQuery.culture = JSON.parse(res.culture);
+        this.prefsQuery.technology = JSON.parse(res.technology);
+        this.prefsQuery.science = JSON.parse(res.science);
+        this.prefsQuery.legal = JSON.parse(res.legal);
+        this.prefsQuery.business = JSON.parse(res.business);
+        this.prefsQuery.general = JSON.parse(res.general);
+
+        this.isLoadingPrefs = false;
+      },
+      (error: any) => {
+        this.isLoadingPrefs = false;
+      }
+    );
   }
 
   makeUrl(url: string) {

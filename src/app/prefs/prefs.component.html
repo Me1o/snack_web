@@ -11,9 +11,199 @@
 </div>
 
 <div class="flex flex-col gap-2">
+  <div>
+    <div class="flex items-center gap-2 cursor-pointer">
+      <img src="news.svg" class="w-6" />
+      <p class="font-bold text-md">تفضيلات الاخبار (اضغط للتعديل)</p>
+      <app-loader *ngIf="isPrefsLoading" [inBtn]="true"></app-loader>
+    </div>
+    <div class="flex items-center gap-2 mt-2 mb-2">
+      <p
+        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer"
+        (click)="showPoliticsPrefs = true"
+      >
+        سياسة ({{ politicsCountries.length }})
+      </p>
+      <p
+        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer"
+        (click)="showSportsPrefs = true"
+      >
+        رياضة ({{ sportsCountries.length }})
+      </p>
+      <p
+        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer"
+        (click)="showCulturePrefs = true"
+      >
+        ثقافة ({{ cultureCountries.length }})
+      </p>
+      <p
+        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer"
+        (click)="showEconomicsPrefs = true"
+      >
+        اقتصاد ({{ economicsCountries.length }})
+      </p>
+      <p
+        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer"
+        (click)="showEntertainmentPrefs = true"
+      >
+        ترفيه ({{ entertainmentCountries.length }})
+      </p>
+      <p
+        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer"
+        (click)="showSciencePrefs = true"
+      >
+        علوم ({{ scienceCountries.length }})
+      </p>
+      <p
+        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer"
+        (click)="showBusinessPrefs = true"
+      >
+        أعمال ({{ businessCountries.length }})
+      </p>
+      <p
+        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer"
+        (click)="showTechnologyPrefs = true"
+      >
+        تكنولوجيا ({{ technologyCountries.length }})
+      </p>
+      <p
+        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer"
+        (click)="showLegalPrefs = true"
+      >
+        قانون ({{ legalCountries.length }})
+      </p>
+      <p
+        class="p-1 px-2 bg-gray-100 rounded-md cursor-pointer"
+        (click)="showGeneralPrefs = true"
+      >
+        عام ({{ generalCountries.length }})
+      </p>
+    </div>
+  </div>
   <div class="flex items-center gap-2 cursor-pointer" (click)="logout()">
     <img src="logout.svg" class="w-6" />
     <p class="text-md">تسجيل الخروج</p>
     <app-loader *ngIf="isUserLoading" [inBtn]="true"></app-loader>
+  </div>
+</div>
+
+<!-- pop ups-->
+<div *ngIf="showPoliticsPrefs" class="popup">
+  <div class="popup_content">
+    <app-countrySelector
+      (okClickedEvent)="politicsCountriesSelectionChange($event)"
+      (closeClickedEvent)="showPoliticsPrefs = false"
+      [topic]="'سياسة'"
+      [inputCountries]="politicsCountries"
+    >
+    </app-countrySelector>
+  </div>
+</div>
+
+<div *ngIf="showSportsPrefs" class="popup">
+  <div class="popup_content">
+    <app-countrySelector
+      (okClickedEvent)="sportsCountriesSelectionChange($event)"
+      (closeClickedEvent)="showSportsPrefs = false"
+      [topic]="'رياضة'"
+      [inputCountries]="sportsCountries"
+    >
+    </app-countrySelector>
+  </div>
+</div>
+
+<div *ngIf="showCulturePrefs" class="popup">
+  <div class="popup_content">
+    <app-countrySelector
+      (okClickedEvent)="cultureCountriesSelectionChange($event)"
+      (closeClickedEvent)="showCulturePrefs = false"
+      [topic]="'ثقافة'"
+      [inputCountries]="cultureCountries"
+    >
+    </app-countrySelector>
+  </div>
+</div>
+
+<div *ngIf="showEconomicsPrefs" class="popup">
+  <div class="popup_content">
+    <app-countrySelector
+      (okClickedEvent)="economicsCountriesSelectionChange($event)"
+      (closeClickedEvent)="showEconomicsPrefs = false"
+      [topic]="'اقتصاد'"
+      [inputCountries]="economicsCountries"
+    >
+    </app-countrySelector>
+  </div>
+</div>
+
+<div *ngIf="showEntertainmentPrefs" class="popup">
+  <div class="popup_content">
+    <app-countrySelector
+      (okClickedEvent)="entertainmentCountriesSelectionChange($event)"
+      (closeClickedEvent)="showEntertainmentPrefs = false"
+      [topic]="'ترفيه'"
+      [inputCountries]="entertainmentCountries"
+    >
+    </app-countrySelector>
+  </div>
+</div>
+
+<div *ngIf="showSciencePrefs" class="popup">
+  <div class="popup_content">
+    <app-countrySelector
+      (okClickedEvent)="scienceCountriesSelectionChange($event)"
+      (closeClickedEvent)="showSciencePrefs = false"
+      [topic]="'علوم'"
+      [inputCountries]="scienceCountries"
+    >
+    </app-countrySelector>
+  </div>
+</div>
+
+<div *ngIf="showBusinessPrefs" class="popup">
+  <div class="popup_content">
+    <app-countrySelector
+      (okClickedEvent)="businessCountriesSelectionChange($event)"
+      (closeClickedEvent)="showBusinessPrefs = false"
+      [topic]="'أعمال'"
+      [inputCountries]="businessCountries"
+    >
+    </app-countrySelector>
+  </div>
+</div>
+
+<div *ngIf="showTechnologyPrefs" class="popup">
+  <div class="popup_content">
+    <app-countrySelector
+      (okClickedEvent)="technologyCountriesSelectionChange($event)"
+      (closeClickedEvent)="showTechnologyPrefs = false"
+      [topic]="'تكنولوجيا'"
+      [inputCountries]="technologyCountries"
+    >
+    </app-countrySelector>
+  </div>
+</div>
+
+<div *ngIf="showLegalPrefs" class="popup">
+  <div class="popup_content">
+    <app-countrySelector
+      (okClickedEvent)="legalCountriesSelectionChange($event)"
+      (closeClickedEvent)="showLegalPrefs = false"
+      [topic]="'قانون'"
+      [inputCountries]="legalCountries"
+    >
+    </app-countrySelector>
+  </div>
+</div>
+
+<div *ngIf="showGeneralPrefs" class="popup">
+  <div class="popup_content">
+    <app-countrySelector
+      (okClickedEvent)="generalCountriesSelectionChange($event)"
+      (closeClickedEvent)="showGeneralPrefs = false"
+      [topic]="'عام'"
+      [inputCountries]="generalCountries"
+    >
+    </app-countrySelector>
   </div>
 </div>

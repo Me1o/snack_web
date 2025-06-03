@@ -34,3 +34,35 @@
 button:disabled {
   opacity: 0.5;
 }
+
+.popup {
+  z-index: 99;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+.popup:before {
+  position: fixed;
+  content: "";
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: #000;
+  opacity: 0.3;
+  z-index: 9;
+}
+.popup > .popup_content {
+  position: fixed !important;
+  bottom: 10%;
+  width: 90%;
+  background-color: #fff;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  padding: 20px;
+  direction: rtl;
+  z-index: 10;
+  overflow: scroll;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}

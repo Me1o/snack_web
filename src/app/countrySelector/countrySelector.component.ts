@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import * as countries from './countries.json';
+import * as isoCountries from 'i18n-iso-countries';
+import { getContinentCode } from '@brixtol/country-continent';
 
 @Component({
   selector: 'app-countrySelector',
@@ -16,7 +18,12 @@ export class CountrySelectorComponent implements OnInit {
   @Input() inputCountries = new Array<string>();
 
   public countryData = countries;
-  public countryList = new Array<{ name: string; code: string }>();
+  public countryList = new Array<{
+    name: string;
+    code: string;
+    code2: string;
+    continant: string;
+  }>();
   public selectedCountries = new Array<{ name: string; code: string }>();
 
   constructor() {}
@@ -31,11 +38,19 @@ export class CountrySelectorComponent implements OnInit {
 
   ngOnInit() {
     for (const key in this.countryData) {
-      if (key != 'default')
+      if (key != 'default') {
+        const code2 = isoCountries.alpha3ToAlpha2(
+          (this.countryData as any)[key] as string
+        );
+        const continent = getContinentCode(code2);
         this.countryList.push({
           name: key,
           code: (this.countryData as any)[key] as string,
+          code2: code2 ? code2 : '',
+          continant: continent ? continent : '',
         });
+      }
+      console.log(this.countryList);
     }
 
     //pre selected countries
@@ -55,7 +70,40 @@ export class CountrySelectorComponent implements OnInit {
       );
     else this.selectedCountries.push(country);
   }
-  onCountrySelect(event: any) {
-    console.log(event);
+  toggleSelectAll() {
+    this.isAllSelected
+      ? (this.selectedCountries = [])
+      : (this.selectedCountries = this.countryList);
+  }
+  get isAllSelected() {
+    return this.selectedCountries == this.countryList;
+  }
+
+  toggleSelectContinant(code: string) {
+    const continantCountries = this.countryList.filter(
+      (c) => c.continant == code
+    );
+    if (this.isAllSelectedInContinent(code)) {
+      continantCountries.forEach((cc) => {
+        if (this.isCountrySelected(cc.code)) this.toggleCountrySelection(cc);
+      });
+    } else {
+      continantCountries.forEach((cc) => {
+        if (!this.isCountrySelected(cc.code)) this.toggleCountrySelection(cc);
+      });
+    }
+  }
+
+  isAllSelectedInContinent(code: string) {
+    const continantCountries = this.countryList.filter(
+      (c) => c.continant == code
+    );
+    return continantCountries.every((cc) => {
+      return this.selectedCountries.indexOf(cc) != -1;
+    });
+  }
+
+  getFlag(code: string) {
+    // return findFlagUrlByIso3Code(code);
   }
 }

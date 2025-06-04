@@ -8,7 +8,7 @@ export const responseInterceptorInterceptor: HttpInterceptorFn = (
   const service = inject(DataService);
   const e = next(req).pipe();
   e.subscribe((ev) => {
-    console.log(ev);
+    console.log((ev as any).status);
     if ((ev as any).status == '401') service.logout();
   });
   return e;

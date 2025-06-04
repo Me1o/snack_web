@@ -13,6 +13,9 @@ import { CommonModule } from '@angular/common';
 export class TimelineComponent implements OnInit {
   private position = 1;
   private scrollLogicInitiated = false;
+  private observer = new IntersectionObserver((entries) =>
+    this.scrollCallback(entries)
+  );
   constructor(public dataService: DataService) {}
 
   get posts() {
@@ -32,6 +35,20 @@ export class TimelineComponent implements OnInit {
     return length == this.total;
   }
 
+  scrollCallback(entries: IntersectionObserverEntry[]) {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting && this.scrollLogicInitiated) {
+        const index = parseInt(entry.target.children[0].innerHTML);
+        const length = this.posts.length;
+        console.log('here goes ' + index + ' out of ' + length);
+        if (length - index < 3 && index > this.position && !this.IsDone) {
+          this.position = index;
+          this.loadMore();
+        }
+      }
+    });
+  }
+
   scrollLogic() {
     const main = document.querySelector('#fullpage');
     if (main) {
@@ -39,37 +56,45 @@ export class TimelineComponent implements OnInit {
       if (elements.length == 0) {
         return;
       }
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && this.scrollLogicInitiated) {
-            const index = parseInt(entry.target.children[0].innerHTML);
-            const length = this.posts.length;
-            console.log('here goes ' + index + ' out of ' + length);
-            if (length - index < 3 && index > this.position && !this.IsDone) {
-              this.position = index;
-              loadMore();
-              this.scrollLogicInitiated = false;
-            }
-          }
-        });
+      elements.forEach((e) => {
+        this.observer.observe(e);
+        e.setAttribute('observed', '1');
       });
-      elements.forEach((e) => observer.observe(e));
       this.scrollLogicInitiated = true;
     }
-    const loadMore = throttle(
-      1000,
-      () => {
-        this.dataService.getPostsNextPage();
-      },
-      { noLeading: false, noTrailing: false }
-    );
   }
+
+  loadMore = throttle(
+    1000,
+    () => {
+      this.dataService.getPostsNextPage();
+    },
+    { noLeading: false, noTrailing: false }
+  );
+
   ngOnInit() {
     this.loadPosts();
 
     const intervalID = setInterval(() => {
       if (!this.scrollLogicInitiated) this.scrollLogic();
     }, 500);
+
+    const targetNode = document.getElementById('fullpage');
+    const observer = new MutationObserver((mutationList) => {
+      //observer hack
+      const elements = document.querySelectorAll('.section');
+      elements.forEach((e) => {
+        const isObserved = e.getAttribute('observed');
+        if (!isObserved) this.observer.observe(e);
+      });
+      //
+    });
+    if (targetNode)
+      observer.observe(targetNode, {
+        attributes: false,
+        childList: true,
+        subtree: true,
+      });
   }
 
   loadPosts() {

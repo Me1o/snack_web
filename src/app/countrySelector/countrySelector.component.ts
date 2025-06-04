@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import * as countries from './countries.json';
 import * as isoCountries from 'i18n-iso-countries';
 import { getContinentCode } from '@brixtol/country-continent';
+import getUnicodeFlagIcon from 'country-flag-icons/unicode';
 
 @Component({
   selector: 'app-countrySelector',
@@ -50,7 +51,6 @@ export class CountrySelectorComponent implements OnInit {
           continant: continent ? continent : '',
         });
       }
-      console.log(this.countryList);
     }
 
     //pre selected countries
@@ -104,6 +104,6 @@ export class CountrySelectorComponent implements OnInit {
   }
 
   getFlag(code: string) {
-    // return findFlagUrlByIso3Code(code);
+    return getUnicodeFlagIcon(code);
   }
 }

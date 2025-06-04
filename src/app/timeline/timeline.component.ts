@@ -81,10 +81,14 @@ export class TimelineComponent implements OnInit {
   ngOnInit() {
     this.dataService.isUserLoggedIn.subscribe((v) => {
       this.isLoggedIn = v.isLoggedIn;
+      this.dataService.resetPosts();
+      window.scrollTo({
+        top: 100,
+        behavior: 'smooth',
+      });
     });
     this.dataService.profile.subscribe((v) => {
       this.profile = v;
-      console.log(this.profile);
     });
 
     this.loadPosts();

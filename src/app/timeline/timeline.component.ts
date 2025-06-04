@@ -11,6 +11,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './timeline.component.css',
 })
 export class TimelineComponent implements OnInit {
+  public isLoggedIn = true;
+  public profile = { id: '', name: '', email: '' };
   private position = 1;
   private scrollLogicInitiated = false;
   private observer = new IntersectionObserver((entries) =>
@@ -72,7 +74,19 @@ export class TimelineComponent implements OnInit {
     { noLeading: false, noTrailing: false }
   );
 
+  reload() {
+    this.dataService.resetPosts();
+  }
+
   ngOnInit() {
+    this.dataService.isUserLoggedIn.subscribe((v) => {
+      this.isLoggedIn = v.isLoggedIn;
+    });
+    this.dataService.profile.subscribe((v) => {
+      this.profile = v;
+      console.log(this.profile);
+    });
+
     this.loadPosts();
 
     const intervalID = setInterval(() => {

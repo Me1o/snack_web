@@ -32,6 +32,11 @@ export class DataService {
   });
   isUserLoggedInSubject = this.isUserLoggedIn.asObservable();
 
+  profile = new BehaviorSubject(
+    this.userProfile ? JSON.parse(this.userProfile) : ''
+  );
+  profileSubject = this.profile.asObservable();
+
   authErrors = new BehaviorSubject({
     isErrored: false,
     message: '',
@@ -55,6 +60,11 @@ export class DataService {
   };
   //
 
+  resetPosts() {
+    this.postsQuery.page = 1;
+    this.posts = [];
+    this.getPosts();
+  }
   getPosts() {
     this.isLoadingPosts = true;
     this.http
@@ -86,6 +96,18 @@ export class DataService {
       });
   }
 
+  getUser() {
+    this.isLoadingUser = true;
+    this.http.get(this.makeUrl('auth/user/')).subscribe((res: any) => {
+      localStorage.setItem(
+        'profile',
+        JSON.stringify({ id: res.id, email: res.email, name: res.name })
+      );
+      this.profile.next(this.userProfile ? JSON.parse(this.userProfile) : '');
+      this.isLoadingUser = false;
+    });
+  }
+
   login() {
     this.isLoadingUser = true;
     this.http
@@ -99,6 +121,7 @@ export class DataService {
           if (res.token) {
             localStorage.setItem('token', res.token);
             this.isUserLoggedIn.next({ isLoggedIn: true, token: res.token });
+            this.getUser();
           }
           this.isLoadingUser = false;
         },
@@ -193,6 +216,10 @@ export class DataService {
 
   get token() {
     return localStorage.getItem('token');
+  }
+
+  get userProfile() {
+    return localStorage.getItem('profile');
   }
 
   resetAuth() {

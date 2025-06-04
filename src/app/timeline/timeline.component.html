@@ -1,10 +1,18 @@
 <div id="fullpage">
   <div class="section flex items-center justify-center" id="start">
     <p class="hidden" id="index">0</p>
-    <div id="content" class="text-center mx-8">
+    <div id="content" class="text-center mx-8" *ngIf="!isLoggedIn">
       <h2 class="text-4xl text-gray-600 font-bold">اهلا 👋</h2>
       <p class="text-lg text-gray-400">
         سجل دخولك لتخصيص المحتوى او اسحب للاعلى لعرض المحتوى العام.
+      </p>
+    </div>
+    <div id="content" class="text-center mx-8" *ngIf="isLoggedIn">
+      <h2 class="text-4xl text-gray-600 font-bold">
+        اهلا {{ profile.name }} 👋
+      </h2>
+      <p class="text-lg text-gray-400">
+        اضغط "التفضيلات" لتخصيص محتواك او اسحب للاعلي للتصفح
       </p>
     </div>
   </div>
@@ -14,6 +22,20 @@
     <app-post [post]="post"></app-post>
   </div>
   }
+
+  <div
+    class="section flex items-center justify-center"
+    id="end"
+    *ngIf="isLoggedIn && IsDone"
+  >
+    <div id="content" class="text-center mx-8">
+      <h2 class="text-4xl text-gray-600 font-bold">☑️</h2>
+      <p class="text-lg text-gray-400">
+        قم باضافة تصنيفات جديدة من التفضيلات لعرض محتوي اكثر
+      </p>
+    </div>
+  </div>
+
   <div
     class="absolute left-[50%] -translate-x-[50%] top-[25%]"
     *ngIf="isPostsLoading"
@@ -24,6 +46,7 @@
 
 <div
   *ngIf="IsDone"
+  (click)="reload()"
   class="fixed bottom-[5%] left-[50%] -translate-x-[50%] cursor-pointer bg-white rounded-xl p-1 px-4 shadow flex items-center gap-2 z-50 transition-all hover:opacity-50"
 >
   <p class="text-xm text-black">تحديث</p>

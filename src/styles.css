@@ -20,7 +20,7 @@
   z-index: 9;
 }
 .panel > .content {
-  position: absolute !important;
+  position: fixed !important;
   bottom: 0;
   width: 100%;
   background-color: #fff;

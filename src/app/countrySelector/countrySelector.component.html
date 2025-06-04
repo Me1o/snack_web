@@ -10,90 +10,94 @@
   <p class="font-bold text-lg">تفضيلات الدول للتصنيف: {{ topic }}</p>
 </div>
 
-<div class="flex flex-col gap-2 max-h-[50vh] overflow-scroll mb-2">
-  <div
-    class="flex items-center gap-2 flex-wrap pb-2 mb-4 border-b-2 border-solid border-gray-50"
-  >
-    <p
-      class="p-1 px-2 bg-gray-50 rounded-md cursor-pointer border-solid border-2"
-      [ngClass]="isAllSelected ? 'border-gray-800' : 'border-gray-50'"
-      (click)="toggleSelectAll()"
-    >
-      {{ isAllSelected ? "الغاء تحديد الكل" : "تحديد الكل" }}
-    </p>
-    <p
-      class="p-1 px-2 bg-gray-50 rounded-md cursor-pointer border-solid border-2"
-      [ngClass]="
-        isAllSelectedInContinent('AF') ? 'border-gray-800' : 'border-gray-50'
-      "
-      (click)="toggleSelectContinant('AF')"
-    >
-      {{
-        isAllSelectedInContinent("AF") ? "الغاء تحديد افريقيا" : "تحديد افريقيا"
-      }}
-    </p>
-    <p
-      class="p-1 px-2 bg-gray-50 rounded-md cursor-pointer border-solid border-2"
-      [ngClass]="
-        isAllSelectedInContinent('AS') ? 'border-gray-800' : 'border-gray-50'
-      "
-      (click)="toggleSelectContinant('AS')"
-    >
-      {{ isAllSelectedInContinent("AS") ? "الغاء تحديد اسيا" : "تحديد اسيا" }}
-    </p>
-    <p
-      class="p-1 px-2 bg-gray-50 rounded-md cursor-pointer border-solid border-2"
-      [ngClass]="
-        isAllSelectedInContinent('EU') ? 'border-gray-800' : 'border-gray-50'
-      "
-      (click)="toggleSelectContinant('EU')"
-    >
-      {{
-        isAllSelectedInContinent("EU") ? "الغاء تحديد اوروبا" : "تحديد اوروبا"
-      }}
-    </p>
-    <p
-      class="p-1 px-2 bg-gray-50 rounded-md cursor-pointer border-solid border-2"
-      [ngClass]="
-        isAllSelectedInContinent('NA') ? 'border-gray-800' : 'border-gray-50'
-      "
-      (click)="toggleSelectContinant('NA')"
-    >
-      {{
-        isAllSelectedInContinent("NA")
-          ? "الغاء تحديد امريكا الشمالية"
-          : "تحديد امريكا الشمالية"
-      }}
-    </p>
-    <p
-      class="p-1 px-2 bg-gray-50 rounded-md cursor-pointer border-solid border-2"
-      [ngClass]="
-        isAllSelectedInContinent('SA') ? 'border-gray-800' : 'border-gray-50'
-      "
-      (click)="toggleSelectContinant('SA')"
-    >
-      {{
-        isAllSelectedInContinent("SA")
-          ? "الغاء تحديد امريكا الجنوبية"
-          : "تحديد امريكا الجنوبية"
-      }}
-    </p>
-  </div>
-</div>
-
-<div class="flex flex-col gap-2 max-h-[50vh] overflow-scroll mb-2">
-  <div class="flex items-center gap-2 flex-wrap">
-    @for (country of countryList; track country.code; let index = $index) {
+<div class="max-h-[50vh] overflow-scroll">
+  <div class="flex flex-col gap-2 mb-2">
     <div
-      class="p-1 px-2 bg-gray-50 rounded-md cursor-pointer border-solid border-2 flex items-center gap-2"
-      [ngClass]="
-        isCountrySelected(country.code) ? 'border-gray-800' : 'border-gray-50'
-      "
-      (click)="toggleCountrySelection(country)"
+      class="flex items-center gap-2 flex-wrap pb-2 mb-4 border-b-2 border-solid border-gray-50"
     >
-      <p>{{ getFlag(country.code2) }} {{ country.name }}</p>
+      <p
+        class="p-1 px-2 bg-gray-50 rounded-md cursor-pointer border-solid border-2"
+        [ngClass]="isAllSelected ? 'border-gray-800' : 'border-gray-50'"
+        (click)="toggleSelectAll()"
+      >
+        {{ isAllSelected ? "الغاء تحديد الكل" : "تحديد الكل" }}
+      </p>
+      <p
+        class="p-1 px-2 bg-gray-50 rounded-md cursor-pointer border-solid border-2"
+        [ngClass]="
+          isAllSelectedInContinent('AF') ? 'border-gray-800' : 'border-gray-50'
+        "
+        (click)="toggleSelectContinant('AF')"
+      >
+        {{
+          isAllSelectedInContinent("AF")
+            ? "الغاء تحديد افريقيا"
+            : "تحديد افريقيا"
+        }}
+      </p>
+      <p
+        class="p-1 px-2 bg-gray-50 rounded-md cursor-pointer border-solid border-2"
+        [ngClass]="
+          isAllSelectedInContinent('AS') ? 'border-gray-800' : 'border-gray-50'
+        "
+        (click)="toggleSelectContinant('AS')"
+      >
+        {{ isAllSelectedInContinent("AS") ? "الغاء تحديد اسيا" : "تحديد اسيا" }}
+      </p>
+      <p
+        class="p-1 px-2 bg-gray-50 rounded-md cursor-pointer border-solid border-2"
+        [ngClass]="
+          isAllSelectedInContinent('EU') ? 'border-gray-800' : 'border-gray-50'
+        "
+        (click)="toggleSelectContinant('EU')"
+      >
+        {{
+          isAllSelectedInContinent("EU") ? "الغاء تحديد اوروبا" : "تحديد اوروبا"
+        }}
+      </p>
+      <p
+        class="p-1 px-2 bg-gray-50 rounded-md cursor-pointer border-solid border-2"
+        [ngClass]="
+          isAllSelectedInContinent('NA') ? 'border-gray-800' : 'border-gray-50'
+        "
+        (click)="toggleSelectContinant('NA')"
+      >
+        {{
+          isAllSelectedInContinent("NA")
+            ? "الغاء تحديد امريكا الشمالية"
+            : "تحديد امريكا الشمالية"
+        }}
+      </p>
+      <p
+        class="p-1 px-2 bg-gray-50 rounded-md cursor-pointer border-solid border-2"
+        [ngClass]="
+          isAllSelectedInContinent('SA') ? 'border-gray-800' : 'border-gray-50'
+        "
+        (click)="toggleSelectContinant('SA')"
+      >
+        {{
+          isAllSelectedInContinent("SA")
+            ? "الغاء تحديد امريكا الجنوبية"
+            : "تحديد امريكا الجنوبية"
+        }}
+      </p>
     </div>
-    }
+  </div>
+
+  <div class="flex flex-col gap-2 mb-2">
+    <div class="flex items-center gap-2 flex-wrap">
+      @for (country of countryList; track country.code; let index = $index) {
+      <div
+        class="p-1 px-2 bg-gray-50 rounded-md cursor-pointer border-solid border-2 flex items-center gap-2"
+        [ngClass]="
+          isCountrySelected(country.code) ? 'border-gray-800' : 'border-gray-50'
+        "
+        (click)="toggleCountrySelection(country)"
+      >
+        <p>{{ getFlag(country.code2) }} {{ country.name }}</p>
+      </div>
+      }
+    </div>
   </div>
 </div>
 

@@ -1,15 +1,19 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { DataService } from './data.service';
 import { inject } from '@angular/core';
+import { catchError } from 'rxjs';
 export const responseInterceptorInterceptor: HttpInterceptorFn = (
   req,
   next
 ) => {
   const service = inject(DataService);
-  const e = next(req).pipe();
-  e.subscribe((ev) => {
-    console.log((ev as any).status);
-    if ((ev as any).status == '401') service.logout();
-  });
-  return e;
+  return next(req).pipe(
+    catchError((error: HttpErrorResponse) => {
+      if (error.status === 401 || error.status === 403) {
+        service.logout();
+        localStorage.removeItem('profile');
+      }
+      return [];
+    })
+  );
 };

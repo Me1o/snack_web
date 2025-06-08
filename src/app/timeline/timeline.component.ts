@@ -91,7 +91,7 @@ export class TimelineComponent implements OnInit {
       this.profile = v;
     });
 
-    this.loadPosts();
+    // this.loadPosts();
 
     const intervalID = setInterval(() => {
       if (!this.scrollLogicInitiated) this.scrollLogic();

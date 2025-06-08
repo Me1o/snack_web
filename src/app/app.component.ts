@@ -6,7 +6,6 @@ import { TimelineComponent } from './timeline/timeline.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { AccountComponent } from './account/account.component';
 import { PrefsComponent } from './prefs/prefs.component';
-import { NavigationEnd, Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   imports: [
@@ -24,15 +23,7 @@ import { NavigationEnd, Router } from '@angular/router';
 export class AppComponent {
   title = 'snackWeb';
 
-  constructor(public router: Router) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        gtag('config', 'xx-xxxxx-xx', {
-          page_path: event.urlAfterRedirects,
-        });
-      }
-    });
-  }
+  constructor() {}
 
   public showAccount = false;
   public showPref = false;

@@ -92,7 +92,9 @@ export class TimelineComponent implements OnInit {
     this.dataService.profile.subscribe((v) => {
       this.profile = v;
     });
-
+    this.dataService.isPrefsUpdatedSubject.subscribe((v) => {
+      this.reload();
+    });
     // this.loadPosts();
 
     const intervalID = setInterval(() => {

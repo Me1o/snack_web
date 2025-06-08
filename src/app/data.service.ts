@@ -16,6 +16,8 @@ export class DataService {
   public isLoadingPosts = false;
   public postsQuery = { page: 1 };
   public totalPosts = 10;
+  isPrefsUpdated = new BehaviorSubject(true);
+  isPrefsUpdatedSubject = this.isPrefsUpdated.asObservable();
   //
 
   //user properties
@@ -171,6 +173,7 @@ export class DataService {
           this.isLoadingPrefs = false;
           this.postsQuery.page = 1;
           this.getPosts();
+          this.isPrefsUpdated.next(true);
         },
         (error: any) => {
           this.isLoadingPrefs = false;

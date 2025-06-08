@@ -13,7 +13,8 @@ import { CommonModule } from '@angular/common';
 export class TimelineComponent implements OnInit {
   public isLoggedIn = true;
   public profile = { id: '', name: '', email: '' };
-  private position = 1;
+  public position = 1;
+  public scrollPosition = 1;
   private scrollLogicInitiated = false;
   private observer = new IntersectionObserver((entries) =>
     this.scrollCallback(entries)
@@ -43,6 +44,7 @@ export class TimelineComponent implements OnInit {
         const index = parseInt(entry.target.children[0].innerHTML);
         const length = this.posts.length;
         console.log('here goes ' + index + ' out of ' + length);
+        this.scrollPosition = index;
         if (length - index < 3 && index > this.position && !this.IsDone) {
           this.position = index;
           this.loadMore();
@@ -75,17 +77,17 @@ export class TimelineComponent implements OnInit {
   );
 
   reload() {
+    window.scrollTo({
+      top: 100,
+      behavior: 'smooth',
+    });
     this.dataService.resetPosts();
   }
 
   ngOnInit() {
     this.dataService.isUserLoggedIn.subscribe((v) => {
       this.isLoggedIn = v.isLoggedIn;
-      this.dataService.resetPosts();
-      window.scrollTo({
-        top: 100,
-        behavior: 'smooth',
-      });
+      this.reload();
     });
     this.dataService.profile.subscribe((v) => {
       this.profile = v;

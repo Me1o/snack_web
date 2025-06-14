@@ -93,7 +93,7 @@ export class TimelineComponent implements OnInit {
       this.profile = v;
     });
     this.dataService.isPrefsUpdatedSubject.subscribe((v) => {
-      this.reload();
+      if (this.posts.length > 0) this.reload();
     });
     // this.loadPosts();
 

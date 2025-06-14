@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Post, postCategory } from './posts.entity';
 import { CommonModule } from '@angular/common';
-
+import * as isoCountries from 'i18n-iso-countries';
+import ar from 'i18n-iso-countries/langs/ar.json';
 @Component({
   selector: 'app-post',
   imports: [CommonModule],
@@ -11,10 +12,12 @@ import { CommonModule } from '@angular/common';
 export class PostComponent implements OnInit {
   @Input() post: Post = new Post();
   public categories: Array<string> = [];
+  public countries: Array<string> = [];
   public source = '';
   ngOnInit() {
     this.getCategory();
     this.getSource();
+    this.getCountry();
   }
 
   getSource() {
@@ -69,6 +72,15 @@ export class PostComponent implements OnInit {
         default:
       }
       this.categories.push(cat);
+    });
+  }
+
+  getCountry() {
+    isoCountries.registerLocale(ar);
+    let cs = this.post.country.split(',');
+    cs.forEach((c) => {
+      let country = isoCountries.getName(c, 'ar');
+      if (country) this.countries.push(country);
     });
   }
 }

@@ -13,6 +13,16 @@
         {{ category }}
       </p>
       }
+      <p class="text-white font-bold text-sm z-50" *ngIf="countries.length > 0">
+        X
+      </p>
+      @for (country of countries; track country; let index = $index) {
+      <p
+        class="bg-white p-0.5 px-2 rounded-lg text-black font-light text-sm z-50"
+      >
+        {{ country }}
+      </p>
+      }
     </div>
     <h1 class="text-white text-4xl z-50 relative font-bold mb-1">
       {{ post.title }}
@@ -40,6 +50,20 @@
         class="bg-gray-100 p-0.5 px-2 rounded-lg text-gray-500 font-light text-sm"
       >
         {{ category }}
+      </p>
+
+      }
+      <p
+        class="text-gray-500 font-bold text-sm z-50"
+        *ngIf="countries.length > 0"
+      >
+        X
+      </p>
+      @for (country of countries; track country; let index = $index) {
+      <p
+        class="bg-gray-100 p-0.5 px-2 rounded-lg text-gray-500 font-light text-sm"
+      >
+        {{ country }}
       </p>
       }
     </div>

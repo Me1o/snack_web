@@ -6,6 +6,7 @@ export class Post {
   source: string = '';
   link: string = '';
   category: postCategory[] = [];
+  country: string = '';
   createdAt: string = '';
   updatedAt: string = '';
 }

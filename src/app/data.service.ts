@@ -1,5 +1,5 @@
 import { Injectable, untracked } from '@angular/core';
-import { Post } from './post/posts.entity';
+import { Post, postCategory } from './post/posts.entity';
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../enviroments/enviroment';
 import { BehaviorSubject } from 'rxjs';
@@ -14,7 +14,7 @@ export class DataService {
   //posts properties
   public posts: Post[] = [];
   public isLoadingPosts = false;
-  public postsQuery = { page: 1 };
+  public postsQuery = { page: 1, category: '' };
   public totalPosts = 10;
   isPrefsUpdated = new BehaviorSubject(true);
   isPrefsUpdatedSubject = this.isPrefsUpdated.asObservable();
@@ -73,7 +73,10 @@ export class DataService {
       .get(
         this.makeUrl(
           (this.token != '' ? 'posts/' : 'posts/explore/') +
-            this.postsQuery.page
+            this.postsQuery.page +
+            (this.postsQuery.category != ''
+              ? '?category=' + this.postsQuery.category
+              : '')
         )
       )
       .subscribe((res: any) => {

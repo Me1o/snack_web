@@ -17,7 +17,7 @@
     </div>
   </div>
   @for (post of posts; track post.id; let index = $index) {
-  <div class="section">
+  <div class="section newssection">
     <p class="hidden" id="index">{{ index }}</p>
     <app-post [post]="post"></app-post>
   </div>
@@ -52,3 +52,5 @@
   <p class="text-xm text-black">تحديث</p>
   <img src="refresh.svg" class="w-4" />
 </div>
+
+<app-tabs (tabClickedEvent)="tabChanged()"></app-tabs>

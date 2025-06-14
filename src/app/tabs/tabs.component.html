@@ -1,0 +1,115 @@
+<div
+  id="sections"
+  class="tailwind-scrollbar-hide flex justify-evenly items-center gap-2 fixed top-[10%] left-0 mx-[2%] flex-nowrap overflow-scroll p-1 px-2 rounded-md text-gray-300 bg-blend-darken z-50 w-[96%]"
+>
+  <p
+    class="shrink-0 cursor-pointer text-md text-shadow-xs text-shadow-gray-500 border-b-2 border-solid border-transparent opacity-70 pb-1"
+    [ngClass]="
+      tab == undefined
+        ? '!border-gray-200 font-bold text-gray-100 opacity-100'
+        : ''
+    "
+    (click)="setTab(undefined)"
+  >
+    الكل
+  </p>
+  <p
+    class="shrink-0 cursor-pointer text-md text-shadow-xs text-shadow-gray-500 border-b-2 border-solid border-transparent opacity-70 pb-1"
+    [ngClass]="
+      tab == categories.Politics
+        ? '!border-gray-200 font-bold text-gray-100 opacity-100'
+        : ''
+    "
+    (click)="setTab(categories.Politics)"
+  >
+    سياسة
+  </p>
+  <p
+    class="shrink-0 cursor-pointer text-md text-shadow-xs text-shadow-gray-500 border-b-2 border-solid border-transparent opacity-70 pb-1"
+    [ngClass]="
+      tab == categories.Sports
+        ? '!border-gray-200 font-bold text-gray-100 opacity-100'
+        : ''
+    "
+    (click)="setTab(categories.Sports)"
+  >
+    رياضة
+  </p>
+  <p
+    class="shrink-0 cursor-pointer text-md text-shadow-xs text-shadow-gray-500 border-b-2 border-solid border-transparent opacity-70 pb-1"
+    [ngClass]="
+      tab == categories.Economics
+        ? '!border-gray-200 font-bold text-gray-100 opacity-100'
+        : ''
+    "
+    (click)="setTab(categories.Economics)"
+  >
+    اقتصاد
+  </p>
+  <p
+    class="shrink-0 cursor-pointer text-md text-shadow-xs text-shadow-gray-500 border-b-2 border-solid border-transparent opacity-70 pb-1"
+    [ngClass]="
+      tab == categories.Legal
+        ? '!border-gray-200 font-bold text-gray-100 opacity-100'
+        : ''
+    "
+    (click)="setTab(categories.Legal)"
+  >
+    قانون
+  </p>
+  <p
+    class="shrink-0 cursor-pointer text-md text-shadow-xs text-shadow-gray-500 border-b-2 border-solid border-transparent opacity-70 pb-1"
+    [ngClass]="
+      tab == categories.Science
+        ? '!border-gray-200 font-bold text-gray-100 opacity-100'
+        : ''
+    "
+    (click)="setTab(categories.Science)"
+  >
+    علوم
+  </p>
+  <p
+    class="shrink-0 cursor-pointer text-md text-shadow-xs text-shadow-gray-500 border-b-2 border-solid border-transparent opacity-70 pb-1"
+    [ngClass]="
+      tab == categories.Technology
+        ? '!border-gray-200 font-bold text-gray-100 opacity-100'
+        : ''
+    "
+    (click)="setTab(categories.Technology)"
+  >
+    تقنية
+  </p>
+  <p
+    class="shrink-0 cursor-pointer text-md text-shadow-xs text-shadow-gray-500 border-b-2 border-solid border-transparent opacity-70 pb-1"
+    [ngClass]="
+      tab == categories.Culture
+        ? '!border-gray-200 font-bold text-gray-100 opacity-100'
+        : ''
+    "
+    (click)="setTab(categories.Culture)"
+  >
+    ثقافة
+  </p>
+  <p
+    class="shrink-0 cursor-pointer text-md text-shadow-xs text-shadow-gray-500 border-b-2 border-solid border-transparent opacity-70 pb-1"
+    [ngClass]="
+      tab == categories.Business
+        ? '!border-gray-200 font-bold text-gray-100 opacity-100'
+        : ''
+    "
+    (click)="setTab(categories.Business)"
+  >
+    اعمال
+  </p>
+  <p
+    class="shrink-0 cursor-pointer text-md text-shadow-xs text-shadow-gray-500 border-b-2 border-solid border-transparent opacity-70 pb-1"
+    [ngClass]="
+      tab == categories.Entertainment
+        ? '!border-gray-200 font-bold text-gray-100 opacity-100'
+        : ''
+    "
+    (click)="setTab(categories.Entertainment)"
+  >
+    ترفيه
+  </p>
+</div>

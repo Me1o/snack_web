@@ -4,9 +4,10 @@ import { DataService } from './../data.service';
 import { throttle } from 'throttle-debounce';
 import { LoaderComponent } from '../loader/loader.component';
 import { CommonModule } from '@angular/common';
+import { TabsComponent } from '../tabs/tabs.component';
 @Component({
   selector: 'app-timeline',
-  imports: [PostComponent, LoaderComponent, CommonModule],
+  imports: [PostComponent, LoaderComponent, CommonModule, TabsComponent],
   templateUrl: './timeline.component.html',
   styleUrl: './timeline.component.css',
 })
@@ -45,7 +46,7 @@ export class TimelineComponent implements OnInit {
         const length = this.posts.length;
         console.log('here goes ' + index + ' out of ' + length);
         this.scrollPosition = index;
-        if (length - index < 3 && index > this.position && !this.IsDone) {
+        if (length - index < 7 && index > this.position && !this.IsDone) {
           this.position = index;
           this.loadMore();
         }
@@ -82,6 +83,19 @@ export class TimelineComponent implements OnInit {
       behavior: 'smooth',
     });
     this.dataService.resetPosts();
+    this.position = 1;
+    this.scrollPosition = 1;
+  }
+
+  tabChanged() {
+    this.dataService.resetPosts();
+    this.position = 1;
+    this.scrollPosition = 1;
+
+    setTimeout(() => {
+      const element = document.getElementsByClassName('newssection')[0];
+      element.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
   }
 
   ngOnInit() {

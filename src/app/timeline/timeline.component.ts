@@ -95,7 +95,7 @@ export class TimelineComponent implements OnInit {
     setTimeout(() => {
       const element = document.getElementsByClassName('newssection')[0];
       element.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
+    }, 1000);
   }
 
   ngOnInit() {

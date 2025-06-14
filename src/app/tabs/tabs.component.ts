@@ -16,7 +16,9 @@ export class TabsComponent implements OnInit {
   constructor(public dataService: DataService) {}
 
   ngOnInit() {
-    this.tab = this.dataService.postsQuery.category as postCategory;
+    this.tab = this.dataService.postsQuery.category
+      ? (this.dataService.postsQuery.category as postCategory)
+      : undefined;
   }
 
   public get categories() {

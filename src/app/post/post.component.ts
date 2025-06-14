@@ -79,7 +79,7 @@ export class PostComponent implements OnInit {
     isoCountries.registerLocale(ar);
     let cs = this.post.country.split(',');
     cs.forEach((c) => {
-      let country = isoCountries.getName(c, 'ar');
+      let country = isoCountries.getName(c.trim(), 'ar');
       if (country) this.countries.push(country);
     });
   }

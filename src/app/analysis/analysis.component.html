@@ -1,0 +1,22 @@
+<div
+  id="head"
+  class="pb-2 mb-4 border-b-2 border-solid border-gray-100 flex items-center gap-2"
+>
+  <img
+    src="close.svg"
+    class="w-6 cursor-pointer"
+    (click)="closeClickHandler()"
+  />
+  <p class="font-bold text-lg">تحليل "{{ post.title }}"</p>
+</div>
+
+<div class="flex flex-col gap-2">
+  <div class="flex items-center justify-center" *ngIf="isLoading">
+    <img src="ai.svg" class="w-16 z-50 animate-pulse" />
+  </div>
+  <div
+    *ngIf="!isLoading"
+    class="max-h-[50vh] overflow-scroll"
+    [innerHtml]="analysis"
+  ></div>
+</div>

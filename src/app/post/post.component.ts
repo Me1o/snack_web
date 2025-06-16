@@ -3,9 +3,10 @@ import { Post, postCategory } from './posts.entity';
 import { CommonModule } from '@angular/common';
 import * as isoCountries from 'i18n-iso-countries';
 import ar from 'i18n-iso-countries/langs/ar.json';
+import { AnalysisComponent } from './../analysis/analysis.component';
 @Component({
   selector: 'app-post',
-  imports: [CommonModule],
+  imports: [CommonModule, AnalysisComponent],
   templateUrl: './post.component.html',
   styleUrl: './post.component.css',
 })
@@ -14,6 +15,7 @@ export class PostComponent implements OnInit {
   public categories: Array<string> = [];
   public countries: Array<string> = [];
   public source = '';
+  public showAnalysis = false;
   ngOnInit() {
     this.getCategory();
     this.getSource();
@@ -82,5 +84,13 @@ export class PostComponent implements OnInit {
       let country = isoCountries.getName(c.trim(), 'ar');
       if (country) this.countries.push(country);
     });
+  }
+
+  public analysisPanelCloseClicked(event: any) {
+    this.showAnalysis = false;
+  }
+
+  public analize() {
+    this.showAnalysis = true;
   }
 }

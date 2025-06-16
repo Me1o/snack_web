@@ -14,8 +14,10 @@ export class DataService {
   //posts properties
   public posts: Post[] = [];
   public isLoadingPosts = false;
-  public postsQuery = { page: 1, category: '' };
+  public isLoadingAnalysis = false;
+  public postsQuery = { page: 1, category: '', analysisId: 0 };
   public totalPosts = 10;
+  public analysis = { data: '', ok: false };
   isPrefsUpdated = new BehaviorSubject(true);
   isPrefsUpdatedSubject = this.isPrefsUpdated.asObservable();
   //
@@ -85,6 +87,18 @@ export class DataService {
         this.isLoadingPosts = false;
       });
   }
+
+  analize() {
+    this.analysis = { data: '', ok: false };
+    this.isLoadingAnalysis = true;
+    this.http
+      .get(this.makeUrl('posts/analize/' + this.postsQuery.analysisId))
+      .subscribe((res: any) => {
+        this.analysis = res;
+        this.isLoadingAnalysis = false;
+      });
+  }
+
   getPostsNextPage() {
     this.postsQuery.page = this.postsQuery.page + 1;
     this.getPosts();

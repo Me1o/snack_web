@@ -5,6 +5,7 @@ import { throttle } from 'throttle-debounce';
 import { LoaderComponent } from '../loader/loader.component';
 import { CommonModule } from '@angular/common';
 import { TabsComponent } from '../tabs/tabs.component';
+declare var gtag: any;
 @Component({
   selector: 'app-timeline',
   imports: [PostComponent, LoaderComponent, CommonModule, TabsComponent],
@@ -39,12 +40,18 @@ export class TimelineComponent implements OnInit {
     return length == this.total;
   }
 
+  analyticsHit() {
+    gtag('event', 'page_view', {
+      page_title: 'timeline-scroll',
+    });
+  }
   scrollCallback(entries: IntersectionObserverEntry[]) {
     entries.forEach((entry) => {
       if (entry.isIntersecting && this.scrollLogicInitiated) {
         const index = parseInt(entry.target.children[0].innerHTML);
         const length = this.posts.length;
         console.log('here goes ' + index + ' out of ' + length);
+        this.analyticsHit();
         this.scrollPosition = index;
         if (length - index < 7 && index > this.position && !this.IsDone) {
           this.position = index;
